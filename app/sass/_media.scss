@@ -28,31 +28,9 @@
 	}
 
 
-
-	.slogan-1{
-		width: 100%;
-		text-align: center;
+	.lang{
+		position: relative;
 	}
-	.nav-feedback{
-		float: left;
-		.clc{
-			padding: 8px 12px;
-		}
-	}
-
-
-.header-navbar, .menu-toggle{
-	@include table-celling( 50px );
-	padding-left: 0;
-	padding-right: 0;
-	display: initial;
-
-}
-
-
-
-
-
 
 
 	.img-circle{

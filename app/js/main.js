@@ -13,10 +13,6 @@ $(function(){
 	$('[data-fancybox]').fancybox({
 	
 	});
-	//WOW
-	new WOW({
-		offset: 30
-	}).init();
 
 
 	// AOS
@@ -30,72 +26,22 @@ $(function(){
 
 
 var header_status = false;
+var win = $( $(window) );
+var bgImage = $( $(".bg img") );
 
-
-
-function phoneDap(){
-	if ( checkView(992) )
-		return;
-	$(".copyright")
-		.before( $(".social") )
-}
-
-function dropbtn(){
-	$(".dropdown-lang .dropbtn").on("click", function(){
-		$( $(this).siblings(".dropdown-content") ).toggleClass("active");
-	});
-	$(".dropdown-lang .dropdown-content").on("mouseleave", function(){
-		$(this).removeClass("active");
-	});
-}
-
-
-var statusSearchView = true;
-$(".btn-search").on("click", function(){
-	$(this).find("i")
-		.toggleClass("fa fa-search")
-		.toggleClass("fa fa-close");
-
-	if(statusSearchView){
-		statusSearchView = !statusSearchView;
-		$(".nav-search-content")
-			.find(".btn-search-sub")
-			.add("input")
-			.removeClass("hide").addClass("show");
-
-		setTimeout(function(){ 
-			$(".aSearch").addClass("in") 
-		}, 1);
-
-	}else{
-		statusSearchView = !statusSearchView;
-		$(".aSearch").removeClass("in");
-
-		setTimeout(function(){
-			$(".nav-search-content")
-			.find(".btn-search-sub")
-			.add("input")
-			.addClass("hide").removeClass("show")
-		}, 300);
-	}
-
-} )
-
-dropbtn();
 
 
 
 //RESIZE
-$( window ).on("resize", function(e){
+win.on("resize", function(e){
 
 	// body
 
 });
 //SCROLL
-var win = ( $(window) );
-$( window ).on("scroll", function(e){
-	$(".bg img").css("top",  "-"+(win.scrollTop()/6)+"px");
 
+win.on("scroll", function(e){
+	bgImage.css("top",  "-"+(win.scrollTop()/10)+"px");
 });
 
 
@@ -115,6 +61,13 @@ $( window ).on("scroll", function(e){
 
 
 
+
+function phoneDap(){
+	if ( checkView(992) )
+		return;
+	$(".copyright")
+		.before( $(".social") )
+}
 
 
 
@@ -182,30 +135,36 @@ function scrolledDiv(el) {
 }
 
 var loadingStatus = true;
+
 function loadingCover(n){
-	if(!loadingStatus){
-		//var he = Math.round( Math.sqrt( Math.pow( checkHeight(), 2 )+Math.pow( checkHeight(), 2 ) ) )
-		//console.log( he );
-		$(".black-div").css({
-			"width": checkWidth()*2,
-			"height": (checkHeight())+111,
-			"margin-top": -+( ( (checkWidth())+111 )/2 ),
-			"margin-right": -+( checkWidth() ),
-			"top": checkHeight()/2,
-			"right": ( (checkWidth())+111 )/2 ,
-		});
+	switch(n){
+		case 0:
+			$(".loading-cover").addClass("in");
+			break;
+			//$(".loading-cover").remoteClass("out");break;
+		case 1:
+			$(".loading-cover").addClass("out");
+			$(".loading-cover").addClass("show").removeClass("hide");
+			break;
+			//$(".loading-cover").removeClass("in");break;
+		default:
+		setTimeout(function(){ 
+			$(".loading-cover").addClass("hide").removeClass("show")
+		}, 500);
+			$(".loading-cover").removeClass("in");
+			$(".loading-cover").removeClass("out");break;
+	}
+/*	if(!loadingStatus){
+		$(".loading-cover").addClass("in");
 		loadingStatus = !loadingStatus;
 	}
 	else{
 		$(".loading-cover").css({
-			"width": "",
-			"height": "",
-			"left": "",
-			"top": ""
+			"margin-right": ""
 		});
 		loadingStatus = !loadingStatus;
 	}
-	return "1"+(!loadingStatus);
+	return "1"+(!loadingStatus);*/
 }
 
 

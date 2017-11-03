@@ -340,6 +340,7 @@ button:hover, button:focus{
 		
 		display: inline-block;
 		display: inline-table;
+		text-align: center;
 	}
 	.img-content, .desc.align-center{
 		
@@ -503,13 +504,13 @@ h1{
   }
 }
 h2{
-	font-size: em(30, 16);
+	font-size: em(24, 16);
 	text-transform: uppercase;
 	margin-top: 50px;
 	letter-spacing: .05em;
 }
 h3{
-	font-size: em(22, 16);
+	font-size: em(20, 16);
 }
 h4{
 	font-size: em(18, 16);
@@ -540,11 +541,26 @@ main{
 	height: 100%;
 	overflow: hidden;
 	background-color: black;
+	em{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0px -20px 20px 20px black;
+    height: 50px;
+    z-index: 50;
+	}
 	img{
 		position: relative;
 		width: 100%;
     height: auto;
     opacity: 1;
+	}
+	@media only screen and (max-width: 991px){
+		& img{
+			width: initial;
+    	max-width: inherit;
+    }
 	}
 }
 
@@ -571,38 +587,69 @@ main{
   z-index: 100;
   //background-color: blue;
   text-align: center;
-
+  &.in{
+  	span{
+  		opacity: 0;
+  	}
+  	.black-div{
+  		margin-right: -300%;
+  	}
+  }
+  &.out{
+  	 span{
+  		opacity: 0;
+  		transition: all 0.1s ease-in-out;
+  	}
+  	.black-div{
+			margin-right: 150%;
+  	}
+  }
+  &:before{
+  	content: '';
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+  }
   .black-div{
-  	transition: all 0.3s ease-in-out;
+  	transition: margin 0.5s ease-in-out;
   	width: 3500px;
     height: 3500px;
     margin: -1740px -1740px 0 0;
     right: 50%;
     top: 50%;
-    background-color: green;
+    background-color: black;
     transform: rotate(45deg);
     position: absolute;
   }
-  strong{
-  	display: inline-block;
+  span{
+  	transition: opacity 0.5s ease-in-out 0.3s;
+  	opacity: 1;
+  	font-size: 6vw;
+  	position: relative;
     vertical-align: middle;
-    font: 120px/130px 'intro_bold';
-    color: #f1f1f1;
     text-transform: uppercase;
-    letter-spacing: .1em;
-    //background: url(/img/overlay-logo.png) 50% 50% no-repeat;
+    letter-spacing: 0.1em;
+    color: #f1f1f1;
     min-width: 374px;
     min-height: 130px;
     width: 99%;
-    position: relative;
+    display: inline-block;
+/*   	
+    
+    //background: url(/img/overlay-logo.png) 50% 50% no-repeat;
+ */
   }
 }
 
 
 
 
-
-
+section{
+	
+	
+}
 
 
 
@@ -634,15 +681,45 @@ main{
 }
 
 
+.section-nav-menu{
+	text-align: center;
+	padding-bottom: 50px;
+	
+	ul{
+		position: relative;
+    display: inline-block;
+    padding-bottom: 30px;
+    border-bottom:1px solid $color_gray_1;
+	}
+	li{
+		display: inline-block;
+	}
+	a{
+		letter-spacing: 0.05em;
+    font-weight: 600;
+    text-transform: uppercase;
+		padding: 10px 15px;
+		&:hover{
+			color: $color_gray_3;
+		}
+	}
+}
 
 
+
+
+
+
+
+
+// TAB
 .eq-tab-nav{
+	text-align: center;
 	li{
 		width: 96/3+%;
 		//transition: all 0.3s ease-in-out;
 		display: inline-block;
     font-size:  em(15, 16);
-    text-align: center;
     text-transform: uppercase;
     color: #fff;
     //border-bottom: 5px solid transparent;
@@ -695,8 +772,6 @@ main{
 
 
 //-----------------КОНТАКТЫ
-
-
 .contacts{
 	.address, .phone, .email{
 		float: left;
@@ -706,10 +781,117 @@ main{
 }
 
 
+//----------------СТРУКТУРА
+.structure{
+
+}
+.structure-content{
 
 
+	li{
+    list-style: none;
+    width: 50%;
+    padding: 30px 0 0;
+    float: left;
+    text-transform: uppercase;
+		&:before{
+			content: '';
+	    width: 44px;
+	    height: 29px;
+	    margin: 0 11px 0 60px;
+	    background: url(../img/structure.png);
+	    display: inline-block;
+	    vertical-align: middle;
+		}
+	}
+	span{
+		display: inline-block;
+    vertical-align: middle;
+    width: 50%;
+	}
+	li.icon-2:before{
+		width: 18px;
+    height: 32px;
+    background-position: -50px 0;
+    margin: 0 25px 0 72px;
+	}
+	li.icon-3:before{
+    width: 28px;
+    height: 29px;
+    background-position: 0 -50px;
+    margin: 0 21px 0 66px;
+	}
+	li.icon-4:before{
+    width: 40px;
+    height: 14px;
+    background-position: -50px -50px;
+    margin: 0 15px 0 60px;
+	}
+	li.icon-5:before{
+    width: 18px;
+    height: 36px;
+    background-position: 0 -100px;
+    margin: 0 27px 0 70px;
+	}
+	
+	li.icon-6:before{
+			width: 22px;
+			height: 22px;
+			background-position: -50px -100px;
+			margin: 0 21px 0 72px;
+		}
+
+	li.icon-7:before{
+			width: 25px;
+			height: 9px;
+			background-position: 0 -150px;
+			margin: 0 22px 0 68px;
+	}
+}
 
 
+//----------------ПАРТНЁРЫ
+
+.partners{
+
+	figure{
+		img{
+			transition: all 0.3s ease-in-out;
+			&:hover{
+				opacity: 0.7;
+			}
+		}
+	}
+
+}
+.recommendation{
+	ul li{
+		margin: 20px 0;
+	}
+}
+.files-list{
+	a{
+		font-size: 1.1em;
+		font-weight: 500;
+		letter-spacing: 0.05em;
+		&:hover{
+			&:before{
+				opacity: 1;
+				transform: matrix(1, 0, 0, 1, -2, 6);
+			}
+		}
+	}
+	.pdf-document{
+		&:before{
+			@extend .fa;
+			@extend .fa-file-pdf-o;
+			position: relative;
+			transition: all 0.3s ease-in-out;
+			font-size: 2em;
+			opacity: 0;
+		}
+	}
+}
 
 
 

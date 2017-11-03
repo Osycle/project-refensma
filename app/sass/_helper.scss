@@ -217,7 +217,7 @@
 
 //--------------------Figure-MARGIN
 @for $i from 0 through 12 {
-	.parag-m-t-#{5*$i} { 
+	.figure-m-t-#{5*$i} { 
 
 		figure{
 			margin-top: 5*$i+px;
@@ -226,7 +226,7 @@
 	}
 }
 @for $i from 0 through 12 {
-	.parag-m-b-#{5*$i} { 
+	.figure-m-b-#{5*$i} { 
 		figure{
 			margin-bottom: 5*$i+px;
 		}
@@ -244,7 +244,7 @@
 	}
 }
 @for $i from 0 through 12 {
-	.parag-m-r-#{5*$i} { 
+	.figure-m-r-#{5*$i} { 
 	figure{
 			margin-right: 5*$i+px;
 		}
@@ -262,13 +262,38 @@
 	}
 }
 @for $i from 0 through 12 {
-	.parag-m-b-#{5*$i} { 
+	.figure-m-b-#{5*$i} { 
 	figure{
 			margin-bottom: 5*$i+px;
 		}
 	 	
 	}
 }
+
+@for $i from 0 through 12 {
+	.figure-m-v-#{5*$i} { 
+
+		figure{
+			margin-top: 5*$i+px;
+			margin-bottom: 5*$i+px;
+		}
+	 	
+	}
+}
+@for $i from 0 through 12 {
+	.figure-m-h-#{5*$i} { 
+	figure{
+			margin-left: 5*$i+px;
+			margin-right: 5*$i+px;
+		}
+	 	
+	}
+}
+
+
+
+
+
 
 .align-center{
 	text-align: center;
@@ -343,4 +368,7 @@
 }
 .text-lowercase{
 	text-transform: lowercase;
+}
+.text-none{
+	text-transform: none;
 }
