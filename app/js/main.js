@@ -18,24 +18,6 @@ $(function(){
 		offset: 30
 	}).init();
 
-	$(".p-animated p").map(function(i, el){
-		$(el).attr({
-					"data-aos": "fade-up",
-					"data-aos-duration": 600,
-					"data-aos-delay": 100*i});
-		$(el).addClass("invisible");
-		setTimeout(function(){$(el).removeClass("invisible")}, 600);
-		setTimeout(function(){$(el).removeClass("aos-animate")}, 100);
-	})
-	$(".p-animated ul li").map(function(i, el){
-		$(el).attr({
-					"data-aos": "fade-up",
-					"data-aos-duration": 600,
-					"data-aos-delay": 100*i});
-		$(el).addClass("invisible");
-		setTimeout(function(){$(el).removeClass("invisible")}, 600);
-		setTimeout(function(){$(el).removeClass("aos-animate")}, 100);
-	});
 
 	// AOS
 	AOS.init({
@@ -49,16 +31,6 @@ $(function(){
 
 var header_status = false;
 
-
-
-
-	//menu init
-	$(".nav-menu").initMenu({
-		"menuToggleBtn": ".menu-toggle",
-		"subMenu": ".sub-menu-1",
-		"modalMenu": "#menuModal",
-		menuHoverIn: function(){}
-	})
 
 
 function phoneDap(){
@@ -120,22 +92,9 @@ $( window ).on("resize", function(e){
 
 });
 //SCROLL
+var win = ( $(window) );
 $( window ).on("scroll", function(e){
-	
-	if($(window).scrollTop() > 300 && header_status == false){
-		
-
-		//$(".header-scroll").addClass("in");
-		
-		header_status = true; 
-
-	}else if($(window).scrollTop() < 300 && header_status == true){
-
-		//$(".header-scroll").removeClass("in");
-		
-		header_status = false;
-
-	}
+	$(".bg img").css("top",  "-"+(win.scrollTop()/6)+"px");
 
 });
 
@@ -143,16 +102,21 @@ $( window ).on("scroll", function(e){
 
 
 
-//COMMON FUNTIONS
 
-function sendForm(th){
 
-	this.onsubmit = function(e){ e.preventDefault();}
-	var require = $(th).serialize();
-	send(require+"&to="+to);
 
-	$(th).find("input").val("");
-}
+	});//$
+}) (jQuery);
+
+
+
+
+
+
+
+
+
+
 
 function ajPost(u, d, s, c){
 	$.ajax({
@@ -166,6 +130,18 @@ function ajPost(u, d, s, c){
 		complete: c
 	});
 }
+
+function sendForm(th){
+
+	this.onsubmit = function(e){ e.preventDefault();}
+	var require = $(th).serialize();
+	send(require+"&to="+to);
+
+	$(th).find("input").val("");
+}
+
+
+
  $.fn.fadeToggleBool = function( dura = 290 ){
  	var self = $( $(this) ),
  		 bool = self.css("display") == "none";
@@ -179,7 +155,6 @@ function ajPost(u, d, s, c){
 
 	return bool;
  }
-
 function modalShadow( el ){
 
 	if( $(modal_shadow).length == 0 && el.jquery) 
@@ -194,6 +169,7 @@ function modalShadow( el ){
 		modal_shadow.off("click");
 }
 
+
 function scrolledDiv(el) {
 	try{
 	  var docViewTop = $(window).scrollTop(),
@@ -205,144 +181,41 @@ function scrolledDiv(el) {
   	return ((elBottom <= docViewBottom) && (elTop >= docViewTop));
 }
 
-
-	});//$
-}) (jQuery);
-
-
-
-
-
-
-
-function Menu( menu, options ){
-
-	var self = this;
-	menu = $( menu );
-
-	//ПОЛЯ
-	this.menuClass						= menu[0].className;
-	this.menuToggleBtn 				= $( $(options.menuToggleBtn) ) ;
-	this.menuToggleBtnParent  = $(this.menuToggleBtn).parent();
-	this.subMenu 							= $( menu.find(options.subMenu) );
-	this.modalMenu  					= $( $(options.modalMenu) );
-	this.modalMenuStatus 		 	= false; 
-
-	//МЕТОДЫ
-	this.menuToggle					= function(){
-		$( this.menuToggleBtn ).trigger("click");
-		return this.modalMenuStatus = !this.modalMenuStatus;
-	}
-
-
-	menu.find("[class|='sub']").closest("li").addClass("sub-parent");
-	$(".min-navbar").append( menu.clone() ).find( "."+this.menuClass ).addClass("min");
-
-	this.modalMenu.on('show.bs.modal', function (e) {
-		if (self.modalMenu.length === 0) return;
-
-		options.modalMenuShow();
-
-	})
-	this.modalMenu.on('shown.bs.modal', function (e) {
-		if (self.modalMenu.length === 0) return;
-
-		options.modalMenuShown();
-		
-	})
-	this.modalMenu.on('hide.bs.modal', function (e) {
-		if (self.modalMenu.length === 0) return;
-		options.modalMenuHidden();
-
-	})
-	this.modalMenu.on('hidden.bs.modal', function (e) {
-		if (self.modalMenu.length === 0) return;
-		self.menuToggleBtn.addClass("collapsed");
-		options.modalMenuHidden();
-
-	})
-
-	//HOVER MENU
-	menu.find("li").hover(
-		function(){
-			options.menuHoverIn();
-	},function(){
-			options.menuHoverOut();
-	});
-
-
-
-	//HOVER SUB-MENU
-	this.subMenu.hover(
-		function(){
-			adposmenu(this);
-			options.subHoverIn();
-		},
-		function(){
-			options.subHoverOut();
+var loadingStatus = true;
+function loadingCover(n){
+	if(!loadingStatus){
+		//var he = Math.round( Math.sqrt( Math.pow( checkHeight(), 2 )+Math.pow( checkHeight(), 2 ) ) )
+		//console.log( he );
+		$(".black-div").css({
+			"width": checkWidth()*2,
+			"height": (checkHeight())+111,
+			"margin-top": -+( ( (checkWidth())+111 )/2 ),
+			"margin-right": -+( checkWidth() ),
+			"top": checkHeight()/2,
+			"right": ( (checkWidth())+111 )/2 ,
 		});
-
-
-
-
-	this.menuToggleBtn.on("click", function(){
-		if(this.modalMenuStatus)
-			$(this).addClass("collapsed");
-		else
-			$(this).removeClass("collapsed");
-
-		options.menuToggle();
-	});
-	
-
-	//	FUNCITON
-
-	function adposmenu(subMenu){
-		//Адаптация положение подменю в зависимости от размера экрана
-		var el = $(subMenu).find("li ul");
-		if (el.length === 0) return;
-		if ( $( window ).width() < el.width() + el.offset().left ) 
-			el.addClass("left");
+		loadingStatus = !loadingStatus;
 	}
-
+	else{
+		$(".loading-cover").css({
+			"width": "",
+			"height": "",
+			"left": "",
+			"top": ""
+		});
+		loadingStatus = !loadingStatus;
+	}
+	return "1"+(!loadingStatus);
 }
-
-
-
-
-
-window.$.fn.initMenu = function(option){
-
-	var options = $.extend({
-		"menuToggleBtn"					: false, 		// Кнопка бара
-		"subMenu"								: false, 		// Класс подменю
-		"modalMenu"							: false, 		// Модальное меню
-
-		"menuToggle"						: Function, 	// Переключение
-		"menuHoverIn"						: Function,
-		"menuHoverOut"					: Function,
-		"subHoverIn"						: Function,
-		"subHoverOut"						: Function,
-		"modalMenuShow"					: Function, 	// Открытие меню
-		"modalMenuShown"				: Function,		// Меню раскрыт
-		"modalMenuHide"					: Function, 	// Раскрытие Меню
-		"modalMenuHidden"				: Function 		// Меню скрыт
-
-
-	}, option );
-	var menu = new Menu(this, options);
-
-	return menu;
-
-}
-
-
-
-
-
 
 
 function checkView( width ){
 	return ($( document ).width() > width);
+}
+function checkWidth(){
+	return $( document ).width();
+}
+function checkHeight(){
+	return $( document ).height();
 }
 
