@@ -1,5 +1,6 @@
 'use strict';
 
+
 (function(){
 $(function(){
 
@@ -8,30 +9,71 @@ $(function(){
 
 
 	// FANCYBOX
-/*	if( $(".fancybox").length != 0 )
-	$(".fancybox").fancybox({});*/
-	$('[data-fancybox]').fancybox({
-	
-	});
+	if( $('[data-fancybox]').length != 0 )
+		$('[data-fancybox]').fancybox({});
 
-
-	// AOS
-	AOS.init({
-	  offset: 0,
-	  once: true,
-	  duration: 1000,
-	  delay: 100
+	// WOW
+	$(".a-animated a").map(function(i, el){
+		$(el).attr({
+					"data-wow-duration": "1s",
+					"data-wow-delay": "1s"});
+		$(el).addClass("wow").addClass("fadeIn");
 	});
-	setTimeout(function(){AOS.refresh()}, 300);
+	$(".a-animated-short a").map(function(i, el){
+		$(el).attr({
+					"data-wow-duration": "1s",
+					"data-wow-delay": "0.5s"});
+		$(el).addClass("wow").addClass("fadeIn");
+	});
+	$(".a-animated-long a").map(function(i, el){
+		$(el).attr({
+					"data-wow-duration": "1s",
+					"data-wow-delay": "1s"});
+		$(el).addClass("wow").addClass("fadeIn");
+	});
+	new WOW({
+		offset: 30,
+		delay: 300
+	}).init();
+
+	// CAROUSELS
+	var arrowStyle = { 
+		  x0: 10,
+		  x1: 60, y1: 50,
+		  x2: 60, y2: 45,
+		  x3: 15
+		}
+	var carouselServ = $('.technologies-carousel .carousel-content').flickity({
+		arrowShape: arrowStyle,
+		//percentPosition: true,
+		pageDots: false,
+		autoPlay: false,
+		draggable: !checkView(991),
+		setGallerySize: true,
+		cellAlign: 'center',
+		contain: true,
+		initialIndex: 2
+	});
 
 
 var header_status = false;
+var filterObjectStatus = false;
 var win = $( $(window) );
 var bgImage = $( $(".bg img") );
 
 
 
+	$(".cat-header").hover(function(){
+		var self = this;
+		$(self).closest(".objects-cat").addClass("in");
+		$(".objects-cat").on("mouseleave", function(){
+			setTimeout( function(){ 
+				$(self).closest(".objects-cat").removeClass("in");
+			}, 300);
+		})
+	}, function(){
 
+	})
 //RESIZE
 win.on("resize", function(e){
 
@@ -41,18 +83,123 @@ win.on("resize", function(e){
 //SCROLL
 
 win.on("scroll", function(e){
-	bgImage.css("top",  "-"+(win.scrollTop()/10)+"px");
+	bgImage.css("top",  "-"+(win.scrollTop()/30)+"px");
+});
+win.on("popstate", function(e){
+	console.log(this);
+})
+var header_content = $(".header-content");
+$(".min-navbar").append( header_content.clone() );
+
+//-ВКЛЮЧЕНИЕ ЭКРАНА ЗАГРУЗКИ ПРИ ПЕРЕХОДЕ
+$(".aLoad").on("click", "a", function(e){
+	if( !/#/.test(this.href) ){
+		var self = this;
+		e.preventDefault();
+		loading.clickObject = self;
+		loading.in( self );
+	}
 });
 
+window.loading = {
+
+	loadingCover: $( ".loading-cover" ),
+	loadingContent: $( ".loading-content" ),
+	loadingLogo: $( "#overlay-logo" ),
+	status: false,
+	content: "",
+	href: "",
+	back: "",
+	forward: "",
+	clickObject: Object,
+
+	checkHrefContent: function (){
+		if( this.content.trim().length === 0 )
+			$(this.loadingLogo).removeClass("hide");
+		else{
+			$(this.loadingLogo).addClass("hide");
+			return true;
+		}
+		
+	},
+
+
+	in: function( objHref ){
+		var text = $(objHref).text();
+		var href = objHref.href;
+		var dataText = $(objHref).attr("data-text");
+		if ( typeof dataText != "undefined" )
+			text = dataText;
+		console.log (objHref);
+		this.clickObject = objHref;
+		this.content = text;
+		this.href = href;
+
+		if ( this.checkHrefContent() ) 
+			$(this.loadingContent).text(text);
+		else
+			$(this.loadingContent).text("");
+		
+		var lc = $( this.loadingCover );
+		lc.removeClass("hide");
+
+		setTimeout(function(){ 
+			lc.removeClass("in");
+		}, 10)
+
+		this._go( href );
+	},
+
+
+	out: function(){
+		var lc = $( this.loadingCover );
+
+		lc.addClass("out");
+
+		setTimeout(function(){ 
+			lc.addClass("hide")
+				.addClass("in")
+				.removeClass("out");
+		}, 800)
+	},
+
+
+	_go: function( path ){
+		setTimeout(function(){
+			location.assign( path );
+		}, 600)
+
+	}
 
 
 
+}
 
 
-
+	$( window ).on( "load", function(){
+		loading.out();
+	});
 
 	});//$
 }) (jQuery);
+
+
+
+
+
+
+
+
+
+
+function statusHome( bool ){
+	var statusAttr = $( $("[data-index]") );
+	if ( statusAttr.length <= 0)
+		return;
+	if( statusAttr.attr("data-index") == "true" )
+		statusAttr.removeClass("hide");
+	return statusAttr;
+}
 
 
 
@@ -136,36 +283,8 @@ function scrolledDiv(el) {
 
 var loadingStatus = true;
 
-function loadingCover(n){
-	switch(n){
-		case 0:
-			$(".loading-cover").addClass("in");
-			break;
-			//$(".loading-cover").remoteClass("out");break;
-		case 1:
-			$(".loading-cover").addClass("out");
-			$(".loading-cover").addClass("show").removeClass("hide");
-			break;
-			//$(".loading-cover").removeClass("in");break;
-		default:
-		setTimeout(function(){ 
-			$(".loading-cover").addClass("hide").removeClass("show")
-		}, 500);
-			$(".loading-cover").removeClass("in");
-			$(".loading-cover").removeClass("out");break;
-	}
-/*	if(!loadingStatus){
-		$(".loading-cover").addClass("in");
-		loadingStatus = !loadingStatus;
-	}
-	else{
-		$(".loading-cover").css({
-			"margin-right": ""
-		});
-		loadingStatus = !loadingStatus;
-	}
-	return "1"+(!loadingStatus);*/
-}
+
+
 
 
 function checkView( width ){
