@@ -66,9 +66,11 @@ var bgImage = $( $(".bg img") );
 	$(".cat-header").hover(function(){
 		var self = this;
 		$(self).closest(".objects-cat").addClass("in");
+		$(self).siblings("ul").removeClass("hide");
 		$(".objects-cat").on("mouseleave", function(){
 			setTimeout( function(){ 
 				$(self).closest(".objects-cat").removeClass("in");
+				$(self).siblings("ul").addClass("hide");
 			}, 300);
 		})
 	}, function(){
@@ -176,7 +178,8 @@ window.loading = {
 }
 
 
-	$( window ).on( "load", function(){
+	$( window, document ).on( "load", function(){
+		console.log("load", history);
 		loading.out();
 	});
 

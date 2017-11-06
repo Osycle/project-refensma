@@ -16347,7 +16347,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-text-size-adjust: none;
   text-size-adjust: none;
-  font: 14px "Open Sans";
+  font: 14px "Verdana";
   color: #f1f1f1;
   background: #262626;
   position: relative;
@@ -16386,7 +16386,7 @@ img {
   outline: 0; }
 
 h1, h2, h3, h4, h5 {
-  font-family: "Open Sans";
+  font-family: "Verdana";
   color: inherit;
   line-height: 160%; }
 
@@ -17295,6 +17295,7 @@ main {
   top: 50px;
   position: absolute; }
   .objects-cat .cat-header {
+    width: 230px;
     border-bottom: 2px solid; }
     .objects-cat .cat-header h5 {
       display: inline-block;
