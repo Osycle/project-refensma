@@ -116,12 +116,12 @@ window.loading = {
 	clickObject: Object,
 
 	checkHrefContent: function (){
-		if( this.content.trim().length === 0 )
-			$(this.loadingLogo).removeClass("hide");
-		else{
-			$(this.loadingLogo).addClass("hide");
+		this.content.trim().length === 0 ?
+			$(this.loadingLogo).removeClass("hide")
+		:
+			$(this.loadingLogo).addClass("hide")
 			return true;
-		}
+		
 		
 	},
 
@@ -137,10 +137,10 @@ window.loading = {
 		this.content = text;
 		this.href = href;
 
-		if ( this.checkHrefContent() ) 
-			$(this.loadingContent).text(text);
-		else
-			$(this.loadingContent).text("");
+		this.checkHrefContent() ? 
+			$(this.loadingContent).text(text) 
+		: 
+			$(this.loadingContent).text("")
 		
 		var lc = $( this.loadingCover );
 		lc.removeClass("hide");
@@ -176,20 +176,16 @@ window.loading = {
 
 
 }
+		$( window, document ).on( "load", function(){
+				loading.out()
+		});
+		if(history.length == sessionStorage.historyState)				
+				loading.out();
+		sessionStorage.historyState = history.length;
 
-
-	$( window, document ).on( "load", function(){
-		console.log("load", history);
-		loading.out();
-	});
 
 	});//$
 }) (jQuery);
-
-
-
-
-
 
 
 
