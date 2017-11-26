@@ -858,7 +858,7 @@ main{
   }
   //transition: margin 2s cubic-bezier(0.55, 0.06, 0.68, 0.19);
   .black-div{
-  	transition: margin 0.6s ease-in-out;
+  	transition: margin 0.7s ease-in-out;
   	width: 3500px;
     height: 3500px;
     margin: -1740px -1740px 0 0;
@@ -869,7 +869,7 @@ main{
     position: absolute;
   }
   span{
-  	transition: opacity 0.2s ease-in 0.3s;
+  	transition: opacity 0.3s ease-in 0.3s;
   	opacity: 1;
   	font-size: 6vw;
   	position: relative;
