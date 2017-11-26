@@ -132,7 +132,6 @@ window.loading = {
 		var dataText = $(objHref).attr("data-text");
 		if ( typeof dataText != "undefined" )
 			text = dataText;
-		console.log (objHref);
 		this.clickObject = objHref;
 		this.content = text;
 		this.href = href;
@@ -163,6 +162,8 @@ window.loading = {
 				.addClass("in")
 				.removeClass("out");
 		}, 800)
+		this.status = !this.status;
+
 	},
 
 
@@ -177,18 +178,31 @@ window.loading = {
 
 }
 		$( window, document ).on( "load", function(){
-				loading.out()
-		});
-		if(history.length == sessionStorage.historyState)				
-				loading.out();
-		sessionStorage.historyState = history.length;
 
+		});
+		if(history.length == sessionStorage.historyState){
+				loading.out();
+				console.log( "Historyonload" );
+		}else if ( !loading.status ) {
+				loading.out();
+				//ДОДЕЛАТЬ
+		}
+		sessionStorage.historyState = history.length;
+		
 
 	});//$
 }) (jQuery);
 
+console.log( history, sessionStorage.historyState );
 
-
+window.onload = function (){
+	try{
+		if ( !loading.status ){
+			loading.out();
+			console.log( "onload" );
+		}
+	}catch(e){}
+}
 
 
 function statusHome( bool ){
@@ -280,7 +294,7 @@ function scrolledDiv(el) {
   	return ((elBottom <= docViewBottom) && (elTop >= docViewTop));
 }
 
-var loadingStatus = true;
+
 
 
 
