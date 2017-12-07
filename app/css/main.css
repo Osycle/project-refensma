@@ -17427,6 +17427,22 @@ tp-bgimg defaultimg {
       .rev-slider .tp-caption a:hover {
         color: white; }
 
+.tp-rightarrow.default, .tp-leftarrow.default {
+  width: 50px !important;
+  background-position: center !important;
+  -webkit-background-size: 15px 15px !important;
+  background-size: 15px !important;
+  background-color: rgba(85, 85, 85, 0.8) !important;
+  height: 50px !important;
+  -webkit-transform: rotate(90deg) !important;
+  -ms-transform: rotate(90deg) !important;
+  transform: rotate(90deg) !important; }
+
+.tp-rightarrow.default {
+  -webkit-transform: rotate(-90deg) !important;
+  -ms-transform: rotate(-90deg) !important;
+  transform: rotate(-90deg) !important; }
+
 .round {
   margin-left: -80px !important; }
   .round .bullet {
